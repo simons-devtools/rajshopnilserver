@@ -10,6 +10,13 @@ const app = express()
 app.use(bodyParser.json());
 app.use(cors());
 
+// Admin service account:
+const admin = require("firebase-admin");
+const serviceAccount = require("./configs/devtools-5344d-firebase-adminsdk-tmbn9-4abc21b7e5.json");
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
 // MongoDB database connect
 const uri = "mongodb+srv://spdevtoolsUser:JtBQT390FA2T4sPD@cluster0.rc49y.mongodb.net/devProducts?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -19,7 +26,8 @@ app.get('/', (req, res) => {
 })
 
 
-// MongoDB Database CRUD
+// MongoDB Database CRUD:
+// ------------------------
 client.connect(err => {
     const collection = client.db("devProducts").collection("products");
     console.log('Products Mongodb Database Connected!');
@@ -58,18 +66,6 @@ client.connect(err => {
             })
     })
 
-    // POST data TO Cart/MDB clud: (Review.js)
-    app.post('/productsByKeys', (req, res) => {
-        const productKeys = req.body;
-        collection.find({ key: { $in: productKeys } })
-            .toArray((err, documents) => {
-                res.send(documents);
-            })
-    })
-
-
-
-
     // Delete one product from MDB cloud:
     // app.delete('/productDelete', (req, res) => {
     //     const id = ObjectID(req.params.id);
@@ -82,20 +78,74 @@ client.connect(err => {
 
 });
 
-// Cart MongoDB Database CRUD
+// User Cart Products MongoDB Database CRUD:
+// --------------------------------------------
 client.connect(err => {
     const collection = client.db("devProducts").collection("cartProducts");
     console.log('Carts Mongodb Database Connected!');
-    // ...
-    // POST data TO Cart/MDB clud: (Review.js)
-    // app.post('/productsByKeys', (req, res) => {
-    //     const productKeys = req.body;
-    //     collection.find({ key: { $in: productKeys } })
-    //         .toArray((err, documents) => {
-    //             res.send(documents);
-    //         })
-    // })
 
+    // POST data TO Cart/MDB clud: (ProductDetail.js)
+    app.post('/addBooking', (req, res) => {
+        const newBooking = req.body;
+        collection.insertOne(newBooking)
+            .then(result => {
+                // console.log(result);
+                res.send(result.insertedCount > 0);
+            })
+        // console.log(newBooking);
+    })
+
+    // Read cart products from the mongodb database: (Review.js)
+    app.get('/bookings', (req, res) => {
+        const bearer = (req.headers.authorization);
+        if (bearer && bearer.startsWith('Bearer ')) {
+            const idToken = bearer.split(' ')[1];
+            // console.log({ idToken });
+
+            // idToken comes from the client app
+            admin.auth().verifyIdToken(idToken)
+                .then((decodedToken) => {
+                    const tokenEmail = decodedToken.email;
+                    const queryEmail = req.query.email;
+                    // console.log(tokenEmail, queryEmail);
+
+                    if (tokenEmail == queryEmail) {
+                        collection.find({ email: queryEmail })
+                            .toArray((err, documents) => {
+                                res.status(200).send(documents);
+                            })
+                    }
+                    else {
+                        res.status(401).send('Unathorised access. Please try again letter!');
+                    }
+                })
+                .catch((error) => {
+                    res.status(401).send('Unathorised access. Please try again letter!');
+                });
+        }
+        else {
+            res.status(401).send('Unathorised access. Please try again letter!');
+        }
+    })
+
+});
+
+// User Cart Products MongoDB Database CRUD:
+// --------------------------------------------
+client.connect(err => {
+    const collection = client.db("devProducts").collection("orders");
+    console.log('Orders Mongodb Database Connected!');
+
+    // POST data TO Cart/MDB clud: (ProductDetail.js)
+    app.post('/addOrder', (req, res) => {
+        const newOrder = req.body;
+        collection.insertOne(newOrder)
+            .then(result => {
+                // console.log(result);
+                res.send(result.insertedCount > 0);
+            })
+        // console.log(newBooking);
+    })
 });
 
 app.listen(port)
