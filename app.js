@@ -66,6 +66,15 @@ client.connect(err => {
             })
     })
 
+    // Search products from MDB cloud:
+    app.get('/search-products', (req, res, next) => {
+        const searchedField = req.query.name;
+        collection.find({ name: { $regex: searchedField, $options: '$i' } })
+            .toArray((err, documents) => {
+                res.send(documents);
+            })
+    })
+
     // Delete one product from MDB cloud:
     // app.delete('/productDelete', (req, res) => {
     //     const id = ObjectID(req.params.id);
