@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const ObjectId = require('mongodb').ObjectID;
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 const port = process.env.PORT || 5200;
@@ -76,14 +77,13 @@ client.connect(err => {
     })
 
     // Delete one product from MDB cloud:
-    // app.delete('/productDelete', (req, res) => {
-    //     const id = ObjectID(req.params.id);
-    //     // console.log('Delete this product??', id);
-    //     collection.findOneAndDelete({ _id: id })
-    //         .then(documents =>
-    //             res.send("It's Deleted")
-    //         )
-    // })
+    app.delete('/delete/:id', (req, res) => {
+        collection.deleteOne({ _id: ObjectId(req.params.id) })
+            .then(result => {
+                // console.log(result);
+                res.send(result.deletedCount > 0);
+            })
+    })
 
 });
 
