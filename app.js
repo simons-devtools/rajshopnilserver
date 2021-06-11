@@ -76,14 +76,14 @@ client.connect(err => {
             })
     })
 
-    // Delete one product from MDB cloud:
-    app.delete('/delete/:id', (req, res) => {
-        collection.deleteOne({ _id: ObjectId(req.params.id) })
-            .then(result => {
-                // console.log(result);
-                res.send(result.deletedCount > 0);
-            })
-    })
+    // // Delete one product from MDB cloud:
+    // app.delete('/delete/:id', (req, res) => {
+    //     collection.deleteOne({ _id: ObjectId(req.params.id) })
+    //         .then(result => {
+    //             console.log(result);
+    //             res.send(result.deletedCount > 0);
+    //         })
+    // })
 
 });
 
@@ -135,6 +135,15 @@ client.connect(err => {
         else {
             res.status(401).send('Unathorised access. Please try again letter!');
         }
+    })
+
+    // Delete one product from MDB cloud:
+    app.delete('/deleteOne/:id', (req, res) => {
+        collection.deleteOne({ _id: ObjectId(req.params.id) })
+            .then(result => {
+                // console.log(result);
+                res.send(result.deletedCount > 0);
+            })
     })
 
 });
