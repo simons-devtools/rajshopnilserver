@@ -75,16 +75,6 @@ client.connect(err => {
                 res.send(documents);
             })
     })
-
-    // // Delete one product from MDB cloud:
-    // app.delete('/delete/:id', (req, res) => {
-    //     collection.deleteOne({ _id: ObjectId(req.params.id) })
-    //         .then(result => {
-    //             console.log(result);
-    //             res.send(result.deletedCount > 0);
-    //         })
-    // })
-
 });
 
 // User Cart Products MongoDB Database CRUD:
@@ -101,7 +91,6 @@ client.connect(err => {
                 // console.log(result);
                 res.send(result.insertedCount > 0);
             })
-        // console.log(newBooking);
     })
 
     // Read cart products from the mongodb database: (Review.js)
