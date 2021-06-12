@@ -60,7 +60,7 @@ client.connect(err => {
     })
 
     // GET specific/pdp/single products form MDB clud: (productDetail.js)
-    app.get('/product/category/:key', (req, res) => {
+    app.get('/product/:category/:key', (req, res) => {
         collection.find({ key: req.params.key })
             .toArray((err, documents) => {
                 res.send(documents[0]);
