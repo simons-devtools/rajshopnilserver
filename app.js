@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 // MongoDB Database CRUD:
 // ------------------------
 client.connect(err => {
-    const collection = client.db(`${process.env.MDB_NAME}`).collection(`${process.env.MDB_PROD}`);
+    const collection = client.db("devProducts").collection("products");
     console.log('Products Mongodb Database Connected!');
     // ...
     // POST data to mongodb cloud:
