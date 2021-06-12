@@ -19,7 +19,7 @@ admin.initializeApp({
 });
 
 // MongoDB database connect
-const uri = process.env.MONGODB_URI;
+const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@cluster0.rc49y.mongodb.net/${process.env.MDB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -134,7 +134,7 @@ client.connect(err => {
                 res.send(result.deletedCount > 0);
             })
     })
-
+    
     // Delete many cart product from MDB cloud:
     app.delete('/deleteMany/:id', (req, res) => {
         collection.deleteMany({ _id: ObjectId(req.params.id) })
