@@ -19,7 +19,7 @@ admin.initializeApp({
 });
 
 // MongoDB database connect
-const uri = `${process.env.MONGODB_URI}`;
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
