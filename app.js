@@ -19,7 +19,7 @@ admin.initializeApp({
 });
 
 // MongoDB database connect
-const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@cluster0.rc49y.mongodb.net/devProducts?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@cluster0.rc49y.mongodb.net/${process.env.MDB_PROD}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
