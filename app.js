@@ -31,13 +31,13 @@ app.get('/', (req, res) => {
 // ------------------------
 client.connect(err => {
     // ...PRODUCTS
-    const productsCollection = client.db(`${process.env.DB_NAME}`).collection("products");
+    const productsCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.DB_PRODUCTS}`);
     console.log('Products Mongodb Database Connected!');
     // ...CARTS
-    const cartsCollection = client.db(`${process.env.DB_NAME}`).collection("cartProducts");
+    const cartsCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.DB_CARTS}`);
     console.log('Carts Mongodb Database Connected!');
     // ...ORDERS
-    const ordersCollection = client.db(`${process.env.DB_NAME}`).collection("orders");
+    const ordersCollection = client.db(`${process.env.DB_NAME}`).collection(`${process.env.DB_ORDERS}`);
     console.log('Orders Mongodb Database Connected!');
 
     // ........................................................................
