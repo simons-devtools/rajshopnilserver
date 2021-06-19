@@ -19,7 +19,7 @@ admin.initializeApp({
 });
 
 // MongoDB database connect
-const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@cluster0.rc49y.mongodb.net/devProducts?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.rc49y.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -31,13 +31,13 @@ app.get('/', (req, res) => {
 // ------------------------
 client.connect(err => {
     // ...PRODUCTS
-    const productsCollection = client.db("devProducts").collection("products");
+    const productsCollection = client.db(`${process.env.DB_NAME}`).collection("products");
     console.log('Products Mongodb Database Connected!');
     // ...CARTS
-    const cartsCollection = client.db("devProducts").collection("cartProducts");
+    const cartsCollection = client.db(`${process.env.DB_NAME}`).collection("cartProducts");
     console.log('Carts Mongodb Database Connected!');
     // ...ORDERS
-    const ordersCollection = client.db("devProducts").collection("orders");
+    const ordersCollection = client.db(`${process.env.DB_NAME}`).collection("orders");
     console.log('Orders Mongodb Database Connected!');
 
     // ........................................................................
