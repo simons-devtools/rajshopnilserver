@@ -83,6 +83,15 @@ client.connect(err => {
                 res.send(documents);
             })
     })
+	
+	// Delete one product from MDB cloud: DashboardCode
+    app.delete('/deleteDataOne/:id', (req, res) => {
+        productsCollection.deleteOne({ _id: ObjectId(req.params.id) })
+            .then(result => {
+                console.log(result);
+                res.send(result.deletedCount > 0);
+            })
+    })
 
     // CARTS ====================================================================================
     // POST data TO Cart/MDB clud: (ProductDetail.js)
@@ -128,11 +137,11 @@ client.connect(err => {
         }
     })
 
-    // Delete one cart product from MDB cloud:
+    // Delete one cart product from MDB cloud: clientCode
     app.delete('/deleteOne/:id', (req, res) => {
         cartsCollection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
-                // console.log(result);
+                console.log(result);
                 res.send(result.deletedCount > 0);
             })
     })
