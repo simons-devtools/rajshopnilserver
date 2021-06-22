@@ -93,7 +93,7 @@ client.connect(err => {
             })
     })
 
-    // CARTS ====================================================================================
+    // CARTS =======================================================================
     // POST data TO Cart/MDB clud: (ProductDetail.js)
     app.post('/addWishlist', (req, res) => {
         const newWishlist = req.body;
@@ -155,7 +155,7 @@ client.connect(err => {
             })
     })
 
-    // ORDERS ====================================================================================
+    // ORDERS ======================================================================
     // POST data TO Cart/MDB clud: (ProductDetail.js)
     app.post('/addOrder', (req, res) => {
         const newOrder = req.body;
