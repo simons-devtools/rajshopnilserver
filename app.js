@@ -95,9 +95,9 @@ client.connect(err => {
 
     // CARTS ====================================================================================
     // POST data TO Cart/MDB clud: (ProductDetail.js)
-    app.post('/addBooking', (req, res) => {
-        const newBooking = req.body;
-        cartsCollection.insertOne(newBooking)
+    app.post('/addWishlist', (req, res) => {
+        const newWishlist = req.body;
+        cartsCollection.insertOne(newWishlist)
             .then(result => {
                 // console.log(result);
                 res.send(result.insertedCount > 0);
@@ -105,7 +105,7 @@ client.connect(err => {
     })
 
     // Read cart products from the mongodb database: (Review.js)
-    app.get('/bookings', (req, res) => {
+    app.get('/wishlist', (req, res) => {
         const bearer = (req.headers.authorization);
         if (bearer && bearer.startsWith('Bearer ')) {
             const idToken = bearer.split(' ')[1];
