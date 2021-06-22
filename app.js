@@ -51,7 +51,7 @@ client.connect(err => {
             })
     })
 
-    // GET all products from MDB cloud:
+    // GET all products from MDB cloud: overall
     app.get('/products', (req, res) => {
         productsCollection.find({})
             .toArray((err, products) => {
@@ -75,12 +75,35 @@ client.connect(err => {
             })
     })
 
-    // Search products from MDB cloud:
+    // Search products from MDB cloud: search.js
     app.get('/search-products', (req, res, next) => {
         const searchedField = req.query.name;
         productsCollection.find({ name: { $regex: searchedField, $options: '$i' } })
             .toArray((err, documents) => {
                 res.send(documents);
+            })
+    })
+	
+	// Patch/update to mongodb database: DashboardCode
+    app.patch("/update/:id", (req, res) => {
+        productsCollection.updateOne(
+            { _id: ObjectId(req.params.id) },
+            {
+                $set: {
+					name: req.body.name,
+					price: req.body.price,
+					group: req.body.group,
+					key: req.body.key,
+					seller: req.body.seller,
+					author: req.body.author,
+					category: req.body.category,
+					collection: req.body.collection,
+					date: req.body.date,
+				}
+            })
+            .then(result => {
+                // console.log(result);
+                res.send(result.modifiedCount > 0);
             })
     })
 
@@ -137,7 +160,7 @@ client.connect(err => {
         }
     })
 
-    // Delete one cart product from MDB cloud: clientCode
+    // Delete one cart product from MDB cloud: clientCode && review.js
     app.delete('/deleteOne/:id', (req, res) => {
         cartsCollection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
@@ -146,7 +169,7 @@ client.connect(err => {
             })
     })
 
-    // Delete many cart product from MDB cloud:
+    // Delete many cart product from MDB cloud: dashboardCode
     app.delete('/deleteMany/:id', (req, res) => {
         cartsCollection.deleteMany({ _id: ObjectId(req.params.id) })
             .then(result => {
@@ -156,7 +179,7 @@ client.connect(err => {
     })
 
     // ORDERS ======================================================================
-    // POST data TO Cart/MDB clud: (ProductDetail.js)
+    // POST data TO Cart/MDB clud: (checkout.js)
     app.post('/addOrder', (req, res) => {
         const newOrder = req.body;
         ordersCollection.insertOne(newOrder)
