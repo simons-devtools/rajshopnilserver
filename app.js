@@ -83,8 +83,8 @@ client.connect(err => {
                 res.send(documents);
             })
     })
-	
-	// Delete one product from MDB cloud: DashboardCode
+
+    // Delete one product from MDB cloud: DashboardCode
     app.delete('/deleteDataOne/:id', (req, res) => {
         productsCollection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
@@ -164,7 +164,6 @@ client.connect(err => {
                 // console.log(result);
                 res.send(result.insertedCount > 0);
             })
-        // console.log(newBooking);
     })
 });
 
