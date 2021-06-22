@@ -88,7 +88,7 @@ client.connect(err => {
     app.delete('/deleteDataOne/:id', (req, res) => {
         productsCollection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
-                console.log(result);
+                // console.log(result);
                 res.send(result.deletedCount > 0);
             })
     })
@@ -141,7 +141,7 @@ client.connect(err => {
     app.delete('/deleteOne/:id', (req, res) => {
         cartsCollection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
-                console.log(result);
+                // console.log(result);
                 res.send(result.deletedCount > 0);
             })
     })
