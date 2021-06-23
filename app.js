@@ -69,7 +69,10 @@ client.connect(err => {
 
     // GET specific/pdp/single products form MDB clud: (productDetail.js)
     app.get('/product/:category/:key', (req, res) => {
-        productsCollection.find({ key: req.params.key })
+        productsCollection.find({
+            category: req.params.category,
+            key: req.params.key
+        })
             .toArray((err, documents) => {
                 res.send(documents[0]);
             })
@@ -83,23 +86,23 @@ client.connect(err => {
                 res.send(documents);
             })
     })
-	
-	// Patch/update to mongodb database: DashboardCode
+
+    // Patch/update to mongodb database: DashboardCode
     app.patch("/update/:id", (req, res) => {
         productsCollection.updateOne(
             { _id: ObjectId(req.params.id) },
             {
                 $set: {
-					name: req.body.name,
-					price: req.body.price,
-					group: req.body.group,
-					key: req.body.key,
-					seller: req.body.seller,
-					author: req.body.author,
-					category: req.body.category,
-					collection: req.body.collection,
-					date: req.body.date,
-				}
+                    name: req.body.name,
+                    price: req.body.price,
+                    group: req.body.group,
+                    key: req.body.key,
+                    seller: req.body.seller,
+                    author: req.body.author,
+                    category: req.body.category,
+                    collection: req.body.collection,
+                    date: req.body.date,
+                }
             })
             .then(result => {
                 // console.log(result);
