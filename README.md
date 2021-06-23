@@ -1,10 +1,16 @@
-# Devtools server code overview
+# Rajshopnil server code overview
 
-This project was material-ui with [Client-Code](https://github.com/spsimon-dev-tools/devtoolsClient).
+This project was material-ui with 
+[Client-Code](https://github.com/spsimon-dev-tools/rajshopnil.git).
+[Dashboard-code](https://github.com/spsimon-dev-tools/dashboard.git).
 
-## Available Scripts
-react, react-router, material-ui, react-hook-form, axios, fetch ...
+# APIs routes:
 
-In the project directory, you can run:
+1. Products: https://rajshopnilserver.herokuapp.com/products
+2. Category: https://rajshopnilserver.herokuapp.com/product-collection/laptop
+3. Single: https://rajshopnilserver.herokuapp.com/product/laptop/MKITH25894
+4. Search: https://rajshopnilserver.herokuapp.com/search-products?name=apple
 
-### `npm start`
+For the categories:
+
+smart-phone, tablet, laptop, desktop, feature-phone, security-camera
