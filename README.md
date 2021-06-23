@@ -4,7 +4,7 @@ This project was material-ui with
 [Client-Code](https://github.com/spsimon-dev-tools/rajshopnil.git).
 [Dashboard-code](https://github.com/spsimon-dev-tools/dashboard.git).
 
-#APIs Routes:
+# APIs routes:
 
 1. Products: https://rajshopnilserver.herokuapp.com/products
 2. Category: https://rajshopnilserver.herokuapp.com/product-collection/laptop
@@ -12,4 +12,5 @@ This project was material-ui with
 4. Search: https://rajshopnilserver.herokuapp.com/search-products?name=apple
 
 For the categories:
+
 smart-phone, tablet, laptop, desktop, feature-phone, security-camera
